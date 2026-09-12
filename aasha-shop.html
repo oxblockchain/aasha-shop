@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آشا شاپ - بازار دیجیتال و فیزیکی</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'IRANSans', 'Vazir', sans-serif; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; } }
+        .animate-slidedown { animation: slideDown 0.3s ease-out; }
+        .animate-fadeinup { animation: fadeInUp 0.5s ease-out; }
+        .hover-lift { transition: transform 0.2s, box-shadow 0.2s; }
+        .hover-lift:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+<!-- HEADER -->
+<header class="sticky top-0 z-50 bg-white border-b border-emerald-100 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+        <div class="text-2xl font-bold text-emerald-700">آشا شاپ</div>
+        
+        <div class="hidden md:flex flex-1 max-w-md">
+            <div class="relative w-full">
+                <input type="text" placeholder="جستجو محصول..." 
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                <span class="absolute right-3 top-2 text-gray-500">🔍</span>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-4">
+            <button class="relative p-2 hover:bg-gray-100 rounded-lg">
+                <span class="text-xl">🛒</span>
+                <span id="cart-count" class="absolute -top-1 -right-1 bg-emerald-600 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">2</span>
+            </button>
+            <button class="hidden sm:block px-4 py-2 text-sm font-medium text-emerald-700 bg-emerald-50 rounded-lg hover:bg-emerald-100">
+                ورود / ثبت‌نام
+            </button>
+        </div>
+    </div>
+
+    <div class="border-t border-gray-200 bg-gray-50 px-4 py-3 flex gap-6 overflow-x-auto">
+        <button class="text-sm font-medium text-gray-700 hover:text-emerald-700 whitespace-nowrap">همه</button>
+        <button class="text-sm font-medium text-gray-700 hover:text-emerald-700 whitespace-nowrap">نرم‌افزار</button>
+        <button class="text-sm font-medium text-gray-700 hover:text-emerald-700 whitespace-nowrap">تجهیزات</button>
+        <button class="text-sm font-medium text-gray-700 hover:text-emerald-700 whitespace-nowrap">آموزش</button>
+    </div>
+</header>
+
+<!-- HERO -->
+<section class="bg-gradient-to-br from-emerald-50 to-emerald-100">
+    <div class="max-w-7xl mx-auto px-4 py-20 md:py-32 flex flex-col md:flex-row items-center gap-8">
+        <div class="flex-1 animate-fadeinup">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
+                بازار دیجیتال و فیزیکی
+            </h1>
+            <p class="text-lg text-gray-700 mb-6 max-w-lg">
+                هزاران محصول باکیفیت، نرم‌افزار آموزشی و تجهیزات در یک جا. خرید آسان، ارسال سریع.
+            </p>
+            <button onclick="showSection('products')" class="px-8 py-3 bg-emerald-700 text-white font-semibold rounded-lg hover:bg-emerald-800">
+                شروع خرید
+            </button>
+        </div>
+        <div class="flex-1">
+            <img src="https://picsum.photos/seed/hero-marketplace/500/400" alt="Hero" class="w-full rounded-xl shadow-xl">
+        </div>
+    </div>
+</section>
+
+<!-- PRODUCTS SECTION -->
+<section id="products-section" class="max-w-7xl mx-auto px-4 py-16">
+    <div class="mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-2">محصولات منتخب</h2>
+        <p class="text-gray-600">بهترین محصولات برای شما</p>
+    </div>
+
+    <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Products will be inserted here by JavaScript -->
+    </div>
+
+    <div class="mt-12 text-center">
+        <button onclick="showSection('cart')" class="px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700">
+            مشاهده سبد خرید
+        </button>
+    </div>
+</section>
+
+<!-- CART PAGE -->
+<section id="cart-page" class="hidden max-w-6xl mx-auto px-4 py-12">
+    <h1 class="text-3xl font-bold text-gray-900 mb-8">سبد خرید</h1>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2 space-y-4" id="cart-items">
+            <!-- Cart items will be inserted here -->
+        </div>
+
+        <div class="bg-emerald-50 border border-emerald-200 rounded-lg p-6 h-fit sticky top-24">
+            <h3 class="font-bold text-lg text-gray-900 mb-4">خلاصه‌ سفارش</h3>
+            <div class="space-y-3 mb-4 pb-4 border-b border-emerald-300">
+                <div class="flex justify-between text-sm">
+                    <span class="text-gray-600">جمع‌کل:</span>
+                    <span id="cart-subtotal">1,144,000</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                    <span class="text-gray-600">مالیات (9%):</span>
+                    <span id="cart-tax">102,960</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                    <span class="text-gray-600">ارسال:</span>
+                    <span id="cart-shipping">25,000</span>
+                </div>
+            </div>
+            <div class="flex justify-between mb-6 text-lg font-bold">
+                <span>کل:</span>
+                <span class="text-emerald-700" id="cart-total">1,271,960</span>
+            </div>
+            <button onclick="showSection('checkout')" class="w-full py-3 bg-emerald-700 text-white font-semibold rounded-lg hover:bg-emerald-800">
+                ادامه‌ به تسویه‌حساب
+            </button>
+            <button onclick="showSection('products')" class="w-full mt-3 py-2 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-100">
+                ادامه‌ خرید
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- CHECKOUT PAGE -->
+<section id="checkout-page" class="hidden max-w-4xl mx-auto px-4 py-12">
+    <h1 class="text-3xl font-bold text-gray-900 mb-12">تسویه‌حساب</h1>
+
+    <div class="mb-12">
+        <div class="flex gap-4 mb-8" id="steps-container">
+            <!-- Steps will be inserted here -->
+        </div>
+        <div class="h-1 bg-gray-200 rounded-full overflow-hidden">
+            <div id="progress-bar" class="h-full bg-emerald-600 transition-all duration-300" style="width: 33%"></div>
+        </div>
+    </div>
+
+    <!-- Step 1: Address -->
+    <div id="step-1" class="animate-fadeinup">
+        <div class="bg-white border border-gray-200 rounded-lg p-6">
+            <h2 class="text-lg font-semibold text-gray-900 mb-6">📍 آدرس تحویل</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <input type="text" placeholder="نام گیرنده" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500">
+                <input type="text" placeholder="شماره تماس" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500">
+                <input type="text" placeholder="استان" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500">
+                <input type="text" placeholder="شهر" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500">
+            </div>
+            <textarea placeholder="آدرس کامل..." rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"></textarea>
+        </div>
+        <button onclick="nextStep()" class="w-full mt-6 py-3 bg-emerald-700 text-white font-semibold rounded-lg hover:bg-emerald-800">
+            ادامه به پرداخت
+        </button>
+    </div>
+
+    <!-- Step 2: Payment -->
+    <div id="step-2" class="hidden animate-fadeinup">
+        <div class="bg-white border border-gray-200 rounded-lg p-6">
+            <h2 class="text-lg font-semibold text-gray-900 mb-6">💳 روش پرداخت</h2>
+            <div class="space-y-3">
+                <label class="flex items-center p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
+                    <input type="radio" name="payment" checked class="w-4 h-4 text-emerald-600">
+                    <span class="mr-3 font-medium text-gray-900">پرداخت آنلاین</span>
+                </label>
+                <label class="flex items-center p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
+                    <input type="radio" name="payment" class="w-4 h-4 text-emerald-600">
+                    <span class="mr-3 font-medium text-gray-900">کیف پول دیجیتال</span>
+                </label>
+                <label class="flex items-center p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
+                    <input type="radio" name="payment" class="w-4 h-4 text-emerald-600">
+                    <span class="mr-3 font-medium text-gray-900">پرداخت درب منزل</span>
+                </label>
+            </div>
+        </div>
+        <div class="flex gap-4 mt-6">
+            <button onclick="prevStep()" class="flex-1 py-3 border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-100">
+                بازگشت
+            </button>
+            <button onclick="nextStep()" class="flex-1 py-3 bg-emerald-700 text-white font-semibold rounded-lg hover:bg-emerald-800">
+                تایید و پرداخت
+            </button>
+        </div>
+    </div>
+
+    <!-- Step 3: Confirmation -->
+    <div id="step-3" class="hidden text-center py-12 animate-fadeinup">
+        <div class="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl">
+            ✓
+        </div>
+        <h2 class="text-3xl font-bold text-gray-900 mb-2">سفارش تایید شد!</h2>
+        <p class="text-gray-600 mb-8">سفارش شما با موفقیت ثبت شد. شماره‌ی سفارش: #123456</p>
+        <button onclick="showSection('products')" class="px-8 py-3 bg-emerald-700 text-white font-semibold rounded-lg hover:bg-emerald-800">
+            بازگشت به خانه
+        </button>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-gray-900 text-white mt-20 py-12">
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8 pb-8 border-b border-gray-800">
+        <div>
+            <h4 class="font-bold mb-4">درباره‌ ما</h4>
+            <ul class="space-y-2 text-sm text-gray-400">
+                <li class="hover:text-white cursor-pointer">تاریخچه</li>
+                <li class="hover:text-white cursor-pointer">تیم</li>
+                <li class="hover:text-white cursor-pointer">مقالات</li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="font-bold mb-4">خدمات</h4>
+            <ul class="space-y-2 text-sm text-gray-400">
+                <li class="hover:text-white cursor-pointer">حمایت</li>
+                <li class="hover:text-white cursor-pointer">بلاگ</li>
+                <li class="hover:text-white cursor-pointer">راهنما</li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="font-bold mb-4">قانونی</h4>
+            <ul class="space-y-2 text-sm text-gray-400">
+                <li class="hover:text-white cursor-pointer">شرایط</li>
+                <li class="hover:text-white cursor-pointer">حریم‌خصوصی</li>
+                <li class="hover:text-white cursor-pointer">کوکی</li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="font-bold mb-4">تماس</h4>
+            <ul class="space-y-2 text-sm text-gray-400">
+                <li>ایمیل: info@aasha.shop</li>
+                <li>تلفن: 021-12345678</li>
+                <li>آدرس: تهران</li>
+            </ul>
+        </div>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 text-center text-sm text-gray-500 pt-8">
+        © 2024 آشا شاپ - بازار دیجیتال و فیزیکی. تمامی حقوق محفوظ است.
+    </div>
+</footer>
+
+<script>
+const PRODUCTS = [
+    { id: 1, title: 'نرم‌افزار طراحی UI Pro', price: 249000, oldPrice: 399000, image: 'https://picsum.photos/seed/design1/300/300', type: 'دیجیتال', rating: 4.8 },
+    { id: 2, title: 'کیبورد مکانیکال RGB', price: 895000, oldPrice: 1200000, image: 'https://picsum.photos/seed/keyboard1/300/300', type: 'فیزیکی', rating: 4.6 },
+    { id: 3, title: 'دوره آنلاین React Advanced', price: 199000, image: 'https://picsum.photos/seed/course1/300/300', type: 'دیجیتال', rating: 4.9 },
+    { id: 4, title: 'موس بی‌سیم لاجیتک', price: 345000, oldPrice: 450000, image: 'https://picsum.photos/seed/mouse1/300/300', type: 'فیزیکی', rating: 4.7 },
+    { id: 5, title: 'Template وب‌سایت Premium', price: 149000, image: 'https://picsum.photos/seed/template1/300/300', type: 'دیجیتال', rating: 4.5 },
+    { id: 6, title: 'مانیتور 4K 32 اینچ', price: 3200000, oldPrice: 4500000, image: 'https://picsum.photos/seed/monitor1/300/300', type: 'فیزیکی', rating: 4.8 },
+];
+
+let currentStep = 1;
+let cart = [
+    { productId: 1, quantity: 1 },
+    { productId: 2, quantity: 1 }
+];
+
+function renderProducts() {
+    const grid = document.getElementById('products-grid');
+    grid.innerHTML = PRODUCTS.map(p => `
+        <div class="bg-white border border-gray-200 rounded-lg overflow-hidden hover-lift">
+            <div class="relative bg-gray-100 aspect-square overflow-hidden">
+                <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover">
+                <div class="absolute top-3 right-3 space-y-2">
+                    ${p.oldPrice ? `<div class="bg-emerald-600 text-white text-xs font-bold px-2.5 py-1 rounded">${Math.round(((p.oldPrice - p.price) / p.oldPrice) * 100)}% تخفیف</div>` : ''}
+                    <div class="bg-gray-800 text-white text-xs font-medium px-2.5 py-1 rounded">${p.type}</div>
+                </div>
+            </div>
+            <div class="p-4 flex flex-col">
+                <h3 class="font-semibold text-sm text-gray-900 mb-2 line-clamp-2">${p.title}</h3>
+                <div class="flex items-center gap-2 mb-3">
+                    <span class="text-sm text-gray-600">⭐ ${p.rating}</span>
+                </div>
+                <div class="mb-4">
+                    <div class="text-lg font-bold text-gray-900">${p.price.toLocaleString('fa-IR')} ت</div>
+                    ${p.oldPrice ? `<div class="text-sm text-gray-500 line-through">${p.oldPrice.toLocaleString('fa-IR')} ت</div>` : ''}
+                </div>
+                <button onclick="addToCart(${p.id})" class="w-full py-2 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700">
+                    افزودن به سبد
+                </button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function addToCart(productId) {
+    const item = cart.find(i => i.productId === productId);
+    if (item) {
+        item.quantity++;
+    } else {
+        cart.push({ productId, quantity: 1 });
+    }
+    updateCartCount();
+}
+
+function updateCartCount() {
+    const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+    document.getElementById('cart-count').textContent = count;
+}
+
+function renderCartItems() {
+    const cartItems = document.getElementById('cart-items');
+    cartItems.innerHTML = cart.map(item => {
+        const product = PRODUCTS.find(p => p.id === item.productId);
+        return `
+            <div class="bg-white border border-gray-200 rounded-lg p-4 flex gap-4">
+                <img src="${product.image}" alt="${product.title}" class="w-24 h-24 rounded-lg object-cover bg-gray-100">
+                <div class="flex-1">
+                    <h3 class="font-semibold text-gray-900 mb-2">${product.title}</h3>
+                    <p class="text-sm text-gray-600 mb-4">${product.price.toLocaleString('fa-IR')} ت</p>
+                    <div class="flex items-center gap-3">
+                        <button class="px-3 py-1 border border-gray-300 rounded hover:bg-gray-100">-</button>
+                        <span class="w-8 text-center font-medium">${item.quantity}</span>
+                        <button class="px-3 py-1 border border-gray-300 rounded hover:bg-gray-100">+</button>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <div class="font-bold text-gray-900">${(product.price * item.quantity).toLocaleString('fa-IR')} ت</div>
+                    <button onclick="removeFromCart(${product.id})" class="text-xs text-red-500 hover:text-red-700 mt-2">حذف</button>
+                </div>
+            </div>
+        `;
+    }).join('');
+    updateCartSummary();
+}
+
+function removeFromCart(productId) {
+    cart = cart.filter(item => item.productId !== productId);
+    renderCartItems();
+    updateCartCount();
+}
+
+function updateCartSummary() {
+    const subtotal = cart.reduce((sum, item) => {
+        const product = PRODUCTS.find(p => p.id === item.productId);
+        return sum + product.price * item.quantity;
+    }, 0);
+    const tax = Math.round(subtotal * 0.09);
+    const shipping = 25000;
+    const total = subtotal + tax + shipping;
+    
+    document.getElementById('cart-subtotal').textContent = subtotal.toLocaleString('fa-IR');
+    document.getElementById('cart-tax').textContent = tax.toLocaleString('fa-IR');
+    document.getElementById('cart-shipping').textContent = shipping.toLocaleString('fa-IR');
+    document.getElementById('cart-total').textContent = total.toLocaleString('fa-IR');
+}
+
+function showSection(section) {
+    document.getElementById('products-section').classList.toggle('hidden', section !== 'products');
+    document.getElementById('cart-page').classList.toggle('hidden', section !== 'cart');
+    document.getElementById('checkout-page').classList.toggle('hidden', section !== 'checkout');
+    
+    if (section === 'cart') {
+        renderCartItems();
+    } else if (section === 'checkout') {
+        currentStep = 1;
+        renderCheckoutSteps();
+    }
+}
+
+function renderCheckoutSteps() {
+    const stepsContainer = document.getElementById('steps-container');
+    stepsContainer.innerHTML = [1, 2, 3].map(num => `
+        <div class="flex-1 flex flex-col items-center cursor-pointer" onclick="goToStep(${num})">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm mb-2 transition-all ${
+                num <= currentStep ? 'bg-emerald-600 text-white' : 'bg-gray-200 text-gray-500'
+            }">
+                ${num < currentStep ? '✓' : num}
+            </div>
+            <span class="text-sm font-medium text-gray-700">${['آدرس', 'پرداخت', 'تایید'][num-1]}</span>
+        </div>
+    `).join('');
+    
+    document.getElementById('progress-bar').style.width = (currentStep / 3 * 100) + '%';
+    
+    document.getElementById('step-1').classList.toggle('hidden', currentStep !== 1);
+    document.getElementById('step-2').classList.toggle('hidden', currentStep !== 2);
+    document.getElementById('step-3').classList.toggle('hidden', currentStep !== 3);
+}
+
+function nextStep() {
+    if (currentStep < 3) {
+        currentStep++;
+        renderCheckoutSteps();
+    }
+}
+
+function prevStep() {
+    if (currentStep > 1) {
+        currentStep--;
+        renderCheckoutSteps();
+    }
+}
+
+function goToStep(step) {
+    if (step < currentStep) {
+        currentStep = step;
+        renderCheckoutSteps();
+    }
+}
+
+// Initialize
+renderProducts();
+updateCartCount();
+</script>
+
+</body>
+</html>
