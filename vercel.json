@@ -1,0 +1,17 @@
+{
+  "name": "aasha-shop",
+  "version": 2,
+  "public": true,
+  "builds": [
+    {
+      "src": "aasha-shop.html",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "aasha-shop.html"
+    }
+  ]
+}
